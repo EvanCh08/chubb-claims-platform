@@ -1,2 +1,16 @@
-<h2>Staff Area</h2>
-<p>Welcome — this is where you'll manage the claims queue.</p>
+<header class="staff-header">
+  <h1>Chubb Claims — Staff</h1>
+  <div class="header-right">
+    <span>{{ currentUser?.name }}</span>
+    <button (click)="logout()">Log out</button>
+  </div>
+</header>
+
+<nav class="staff-nav">
+  <a routerLink="queue">Claims Queue</a>
+  <!-- Dashboard link added in Phase 6 -->
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -11,8 +11,15 @@
       </div>
       <p class="claim-type">{{ claim.type | titlecase }} claim</p>
       <p class="claim-desc">{{ claim.description }}</p>
-      <p class="claim-amount">Estimated: {{ claim.estimatedAmount | currency:'SGD' }}</p>
-      <p *ngIf="claim.decision" class="claim-decision">Decision: {{ claim.decision }}</p>
+      <p class="claim-amount">
+        Estimated: {{ claim.estimatedAmount | currency: "SGD" }}
+      </p>
+      <p *ngIf="claim.settledAmount != null" class="claim-settled">
+        Settled for: {{ claim.settledAmount | currency: "SGD" }}
+      </p>
+      <p *ngIf="claim.decision" class="claim-decision">
+        Decision: {{ claim.decision }}
+      </p>
     </li>
   </ul>
 </ng-container>

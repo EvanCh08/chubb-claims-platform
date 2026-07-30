@@ -52,3 +52,9 @@ The single frontend state layer for claims, and the one boundary between compone
 - Report (report-claim): Reactive Forms (FormBuilder + Validators: required, minLength, min). On submit → claimService.addClaim() → redirect to track, where the new claim appears immediately because track subscribes to the same BehaviorSubject. Chose reactive over template-driven for explicit, validatable form state.
 - Typed the `type` form control as ClaimType (not plain string) so it matches addClaim's union type — TypeScript caught the mismatch (the model's union-type safety working as intended).
 - Partial data handled: track shows a claim's decision only if it exists (*ngIf="claim.decision"), since a new/submitted claim has none yet.
+
+### Claim Staff Product
+- Staff shell (staff-home: header + nav + nested outlet), mirroring the claimant side.
+- Queue: subscribes to the FULL claims$ (staff see all claims, unlike claimants who filter to their own). Actions gated by status — submitted → "Pick up" (assignClaim, → in_review); in_review → "Assess" link to the assessment page; settled/rejected → no actions. UI reflects the lifecycle.
+- Assessment page (assess/:id): reads the claim id from the route param (ActivatedRoute snapshot paramMap), finds that claim in the stream. Two small reactive forms — settle (amount required + min 1, optional note) and reject (reason required). On submit → settleClaim/rejectClaim → back to queue. Template guards on status === 'in_review' so an already-decided claim can't be re-assessed.
+- Full lifecycle verified end to end: claimant submits → staff picks up → staff settles/rejects → claimant sees the decision on their track page. All via the one BehaviorSubject; every view reacts.

@@ -7,6 +7,13 @@
 .status-in_review { background: #fff3e0; }
 .status-settled  { background: #e8f5e9; }
 .status-rejected { background: #ffebee; }
+.claim-meta { color: #333; font-size: 14px; }
 .claim-desc { color: #555; }
-.claim-decision { font-style: italic; margin-top: 8px; }
+.claim-assigned, .claim-decision { font-size: 14px; font-style: italic; }
+.claim-actions { margin-top: 12px; display: flex; gap: 8px; }
 .claim-settled { color: #2e7d32; font-weight: 600; }
+.claim-actions button, .assess-link {
+  padding: 6px 14px; font-size: 14px; cursor: pointer;
+  border: 1px solid #333; border-radius: 6px; background: #fff;
+  text-decoration: none; color: #000; display: inline-block;
+}

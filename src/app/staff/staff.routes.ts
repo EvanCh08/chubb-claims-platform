@@ -1,11 +1,23 @@
 import { Routes } from '@angular/router';
+import { StaffHomeComponent } from './staff-home/staff-home.component';
 
-// Routes for the staff area. Lazy-loaded as a group. For now just the home page;
-// queue/assessment/dashboard added later.
 export const STAFF_ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./staff-home/staff-home.component').then(m => m.StaffHomeComponent),
+    component: StaffHomeComponent,
+    children: [
+      {
+        path: 'queue',
+        loadComponent: () =>
+          import('./queue/queue.component').then(m => m.QueueComponent),
+      },
+      {
+        // Assessment page for one claim — :id is a route parameter (which claim).
+        path: 'assess/:id',
+        loadComponent: () =>
+          import('./assess-claim/assess-claim.component').then(m => m.AssessClaimComponent),
+      },
+      { path: '', redirectTo: 'queue', pathMatch: 'full' },
+    ],
   },
 ];

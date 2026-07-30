@@ -1,0 +1,53 @@
+<h2>Claims Queue</h2>
+
+<ng-container *ngIf="claims$ | async as claims; else loading">
+  <p *ngIf="claims.length === 0">No claims in the system.</p>
+
+  <ul class="claim-list" *ngIf="claims.length > 0">
+    <li *ngFor="let claim of claims" class="claim-card">
+      <div class="claim-top">
+        <span class="claim-id">{{ claim.id }}</span>
+        <span class="status status-{{ claim.status }}">{{ claim.status }}</span>
+      </div>
+
+      <p class="claim-meta">
+        {{ claim.type | titlecase }} · {{ claim.claimantName }} · Estimated
+        {{ claim.estimatedAmount | currency: "SGD" }}
+      </p>
+      <p class="claim-desc">{{ claim.description }}</p>
+
+      <p *ngIf="claim.assignedTo" class="claim-assigned">
+        Assigned to: {{ claim.assignedTo }}
+      </p>
+      <p *ngIf="claim.settledAmount != null" class="claim-settled">
+        Settled for: {{ claim.settledAmount | currency: "SGD" }}
+      </p>
+      <p *ngIf="claim.decision" class="claim-decision">
+        Decision: {{ claim.decision }}
+      </p>
+
+      <!-- Actions depend on status -->
+      <div class="claim-actions">
+        <!-- Submitted → can be picked up -->
+        <button *ngIf="claim.status === 'submitted'" (click)="pickUp(claim.id)">
+          Pick up
+        </button>
+
+        <!-- In review → can be assessed (opens the assessment page for this claim) -->
+        <a
+          *ngIf="claim.status === 'in_review'"
+          [routerLink]="['/staff/assess', claim.id]"
+          class="assess-link"
+        >
+          Assess
+        </a>
+
+        <!-- Settled/rejected → no actions, outcome already shown above -->
+      </div>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading claims…</p>
+</ng-template>

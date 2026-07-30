@@ -1,0 +1,59 @@
+<a routerLink="/staff/queue" class="back-link">← Back to queue</a>
+
+<ng-container *ngIf="claim$ | async as claim; else notFound">
+  <h2>Assess Claim {{ claim.id }}</h2>
+
+  <div class="claim-summary">
+    <p><strong>{{ claim.type | titlecase }}</strong> · {{ claim.claimantName }}</p>
+    <p>{{ claim.description }}</p>
+    <p>Estimated: {{ claim.estimatedAmount | currency:'SGD' }}</p>
+    <p>Status: <span class="status status-{{ claim.status }}">{{ claim.status }}</span></p>
+  </div>
+
+  <!-- Only allow assessing a claim that's actually in review -->
+  <ng-container *ngIf="claim.status === 'in_review'; else alreadyDecided">
+
+    <div class="assess-panels">
+      <!-- Settle -->
+      <form [formGroup]="settleForm" (ngSubmit)="settle()" class="panel">
+        <h3>Settle</h3>
+        <label>
+          Payout amount (SGD)
+          <input type="number" formControlName="amount" placeholder="0" />
+          <span class="error" *ngIf="settleForm.get('amount')?.touched && settleForm.get('amount')?.invalid">
+            Enter an amount greater than 0.
+          </span>
+        </label>
+        <label>
+          Note (optional)
+          <input type="text" formControlName="note" placeholder="e.g. Approved in full" />
+        </label>
+        <button type="submit">Settle claim</button>
+      </form>
+
+      <!-- Reject -->
+      <form [formGroup]="rejectForm" (ngSubmit)="reject()" class="panel">
+        <h3>Reject</h3>
+        <label>
+          Reason
+          <textarea formControlName="reason" rows="3" placeholder="Reason for rejection"></textarea>
+          <span class="error" *ngIf="rejectForm.get('reason')?.touched && rejectForm.get('reason')?.invalid">
+            A reason is required.
+          </span>
+        </label>
+        <button type="submit">Reject claim</button>
+      </form>
+    </div>
+
+  </ng-container>
+
+  <ng-template #alreadyDecided>
+    <p class="decided-note">This claim is <strong>{{ claim.status }}</strong> and can no longer be assessed.</p>
+    <p *ngIf="claim.decision">Decision: {{ claim.decision }}</p>
+  </ng-template>
+
+</ng-container>
+
+<ng-template #notFound>
+  <p>Claim not found.</p>
+</ng-template>
