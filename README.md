@@ -1,59 +1,56 @@
-# ChubbClaimsPlatform
+# Chubb Claims Platform — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+An Angular frontend for a claims platform serving two user types — **claimants** and **claims staff** — from a single codebase. Built for the Chubb AI Take-Home Assessment (Frontend brief).
 
-## Development server
-
-To start a local development server, run:
+## Running locally
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open `http://localhost:4200`.
 
-## Code scaffolding
+There's no login — pick a role on the landing screen:
+- **I'm a Claimant** — report claims and track their status.
+- **I'm Claims Staff** — manage the queue, pick up claims, assess (settle/reject), and view the manager dashboard.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## What it does
 
-```bash
-ng generate component component-name
-```
+**Claimants** can report a claim, and track their own claims (with live status and decisions).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**Claims staff** see the full queue, pick up submitted claims, assess in-review claims (settle with a payout amount, or reject with a reason), and view a manager dashboard showing outstanding liability exposure, claim counts, and per-officer workload — all updating in real time.
 
-```bash
-ng generate --help
-```
+The full lifecycle flows end to end: claimant submits → staff picks up → staff settles/rejects → claimant sees the decision.
 
-## Building
+## Architecture & key decisions
 
-To build the project run:
+**One codebase, two user types.** A shared `core` (models, services, guards) with two lazy-loaded feature areas — `claimant` and `staff`. Role separation is enforced at the router with `CanActivate` guards, not by hiding UI: a claimant typing `/staff` is redirected, and the staff bundle never even loads. (Frontend guards are UX-level; real access control would be enforced server-side.)
 
-```bash
-ng build
-```
+**Single source of truth.** All claim state lives in a root-provided `ClaimService` holding claims in a `BehaviorSubject`, exposed as a read-only `claims$` observable. Components read via `claims$` and mutate only through service methods — so the claimant view, staff queue, and dashboard all stay in sync from one source, with no copies to drift. Chose a service + `BehaviorSubject` over NgRx because the state is simple enough that NgRx's boilerplate wasn't justified.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+**Reactive throughout.** Views subscribe via the `async` pipe. The dashboard's figures (exposure, counts) are derived reactively from `claims$`, so settling a claim updates the exposure total live — the "real-time picture" the brief highlights.
 
-## Running unit tests
+**Reactive forms** for claim reporting and assessment, with validation.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Mock data / backend
 
-```bash
-ng test
-```
+Claims are currently seeded in-memory in `ClaimService`, standing in for what a backend API would return. Because components only ever talk to the service, swapping the seed for real HTTP calls (or a mock backend like JSON Server) is isolated to the service — no component changes.
 
-## Running end-to-end tests
+## Deliberate scope decisions
 
-For end-to-end (e2e) testing, run:
+Given the time-box, the following were deprioritised and would be natural next steps:
+- **Real authentication** — login is a role picker; no credentials/session.
+- **Real backend & persistence** — state is in-memory, so a page refresh resets to seed data. Real enforcement of "claimants see only their own claims" belongs on the backend.
+- **Real-time push (Kafka/WebSocket)** — the architecture is shaped for it: a pushed event would update the same `BehaviorSubject` and every view would react. Not implemented.
+- **`info_requested` status** — staff sending a claim back to the claimant for more info.
+- **Separate manager role** — the dashboard is currently visible to all staff; a `manager` role + guard would restrict it (same guard pattern).
+- **Unit tests** — omitted for scope; `ClaimService` methods and the exposure calc are the obvious things to cover.
 
-```bash
-ng e2e
-```
+## AI working journal
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+See `AI_JOURNAL.md` for a running log of how I directed, challenged, and overrode AI throughout the build, with reasoning behind the key decisions.
 
-## Additional Resources
+## Tech
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Angular (standalone components), TypeScript, RxJS. No backend — in-memory seed data.
