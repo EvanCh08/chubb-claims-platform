@@ -36,3 +36,12 @@ The single frontend state layer for claims, and the one boundary between compone
 - getTotalExposure: sums estimatedAmount across all claims that are NOT settled and NOT rejected — i.e. still-open claims. Settled claims have been paid out and rejected claims owe nothing, so both leave the "exposure" bucket. This is the liability-exposure figure the manager dashboard needs.
 
 - Seed data: the service currently seeds a hardcoded array of claims because there's no backend yet — it stands in for what an API would return on load. Brief asks for a mock backend (JSON Server/MSW); the plan is to swap the seed for HTTP calls to a mock later. Because components only ever talk to ClaimService, that swap is isolated to the service — no component changes.
+
+## 30 July
+### Auth Service
+- This is a service that is built minimal enough to demonstrate role picking (e.g. claimant or staff). It has same pattern as ClaimService (root singleton, private BehaviorSubject currentUser$, mutate via methods). No real auth in scope — login() just sets a role (claimant/staff). Added a synchronous currentUser getter because route guards need to read the role immediately without subscribing.
+- Note: on standalone components (no NgModules), "lazy-loaded feature modules" = lazy-loaded routes files via loadChildren pointing at a routes array not a feature module. Same concept (separate bundles + guards + shared core), but different mechanism.
+- Route guards (claimantGuard/staffGuard, CanActivateFn): check role before a route loads; wrong role → redirect to login. Enforces separation at the router, not by hiding UI — a claimant typing /staff is bounced back to login and the lazy staff bundle never even downloads. Caveat: frontend guards are UX, not security; real enforcement is backend (out of scope, mocked).
+- Each feature has its own routes file (claimant.routes.ts / staff.routes.ts) that exports a Routes array named CLAIMANT_ROUTES / STAFF_ROUTES. The global app.routes.ts lazy-loads these arrays via loadChildren. Inside each, individual pages are lazy-loaded via loadComponent (path '' → the area's home page for now).
+- Stripped app.component.html down to just <router-outlet> — AppComponent is the shell; routed pages render into the outlet.
+- Tested: login → claimant area; /staff as claimant bounces to login; and vice versa. Role separation working both directions.

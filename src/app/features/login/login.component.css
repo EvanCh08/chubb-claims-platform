@@ -1,0 +1,26 @@
+.login {
+  max-width: 480px;
+  margin: 80px auto;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+}
+
+.login-options {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.login-options button {
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.login-options button:hover {
+  background: #f0f0f0;
+}
