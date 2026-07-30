@@ -1,0 +1,10 @@
+.cards { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; }
+.card {
+  border: 1px solid #ddd; border-radius: 8px; padding: 16px 20px;
+  display: flex; flex-direction: column; gap: 8px; min-width: 160px;
+}
+.card.highlight { border-color: #1565c0; background: #e3f2fd; }
+.card-label { font-size: 13px; color: #555; }
+.card-value { font-size: 24px; font-weight: 700; }
+.officer-list { list-style: none; padding: 0; max-width: 360px; }
+.officer-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }

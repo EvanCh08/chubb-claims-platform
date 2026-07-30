@@ -58,3 +58,10 @@ The single frontend state layer for claims, and the one boundary between compone
 - Queue: subscribes to the FULL claims$ (staff see all claims, unlike claimants who filter to their own). Actions gated by status — submitted → "Pick up" (assignClaim, → in_review); in_review → "Assess" link to the assessment page; settled/rejected → no actions. UI reflects the lifecycle.
 - Assessment page (assess/:id): reads the claim id from the route param (ActivatedRoute snapshot paramMap), finds that claim in the stream. Two small reactive forms — settle (amount required + min 1, optional note) and reject (reason required). On submit → settleClaim/rejectClaim → back to queue. Template guards on status === 'in_review' so an already-decided claim can't be re-assessed.
 - Full lifecycle verified end to end: claimant submits → staff picks up → staff settles/rejects → claimant sees the decision on their track page. All via the one BehaviorSubject; every view reacts.
+
+### Claim Staff/Manager Dashboard
+- Dashboard page in the staff area (nav link alongside queue). Shows outstanding liability exposure, open/total/settled/rejected counts, and per-officer workload.
+- All figures DERIVED reactively from claims$ (stats$ = claims$.pipe(map(computeStats))) — nothing stored. So it's live: settle/reject a claim and exposure + counts update immediately. This is the "real-time picture" the brief flagged managers lacked — it falls out of the single-source-of-truth architecture for free.
+- totalExposure = sum of estimatedAmount for open claims only (not settled/rejected), matching the liability-exposure definition.
+- Dashboard accessible to all staff — scoped to the brief's two roles (claimant/staff), no separate manager role. Refinement: add a `manager` role + guard the dashboard (same guard pattern, one more role). Left out to stay within the brief's user types.
+- perOfficer counts assigned claims per officer (basic workload view). Refinement: count only active/in-review claims rather than including decided ones.

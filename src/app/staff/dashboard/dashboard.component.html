@@ -1,0 +1,39 @@
+<h2>Manager Dashboard</h2>
+
+<ng-container *ngIf="stats$ | async as stats">
+
+  <!-- Headline numbers -->
+  <div class="cards">
+    <div class="card highlight">
+      <span class="card-label">Outstanding liability exposure</span>
+      <span class="card-value">{{ stats.totalExposure | currency:'SGD' }}</span>
+    </div>
+    <div class="card">
+      <span class="card-label">Open claims</span>
+      <span class="card-value">{{ stats.openClaims }}</span>
+    </div>
+    <div class="card">
+      <span class="card-label">Total claims</span>
+      <span class="card-value">{{ stats.totalClaims }}</span>
+    </div>
+    <div class="card">
+      <span class="card-label">Settled</span>
+      <span class="card-value">{{ stats.settledClaims }}</span>
+    </div>
+    <div class="card">
+      <span class="card-label">Rejected</span>
+      <span class="card-value">{{ stats.rejectedClaims }}</span>
+    </div>
+  </div>
+
+  <!-- Workload per officer -->
+  <h3>Workload by officer</h3>
+  <p *ngIf="stats.perOfficer.length === 0">No claims assigned yet.</p>
+  <ul class="officer-list" *ngIf="stats.perOfficer.length > 0">
+    <li *ngFor="let row of stats.perOfficer">
+      <span>{{ row.officer }}</span>
+      <span>{{ row.count }} claim(s)</span>
+    </li>
+  </ul>
+
+</ng-container>
