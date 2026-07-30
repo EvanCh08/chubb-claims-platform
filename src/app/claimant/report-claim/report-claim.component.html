@@ -1,0 +1,34 @@
+<h2>Report a Claim</h2>
+
+<form [formGroup]="claimForm" (ngSubmit)="submit()" class="claim-form">
+
+  <label>
+    Claim type
+    <select formControlName="type">
+      <option value="motor">Motor</option>
+      <option value="property">Property</option>
+    </select>
+  </label>
+
+  <label>
+    Description
+    <textarea formControlName="description" rows="3"
+              placeholder="Describe what happened…"></textarea>
+    <!-- Validation message: only show once the field is touched and invalid -->
+    <span class="error"
+          *ngIf="claimForm.get('description')?.touched && claimForm.get('description')?.invalid">
+      Please enter at least 10 characters.
+    </span>
+  </label>
+
+  <label>
+    Estimated amount (SGD)
+    <input type="number" formControlName="estimatedAmount" placeholder="0" />
+    <span class="error"
+          *ngIf="claimForm.get('estimatedAmount')?.touched && claimForm.get('estimatedAmount')?.invalid">
+      Please enter an amount greater than 0.
+    </span>
+  </label>
+
+  <button type="submit">Submit Claim</button>
+</form>

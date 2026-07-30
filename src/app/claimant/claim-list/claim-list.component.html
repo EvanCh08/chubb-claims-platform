@@ -1,0 +1,22 @@
+<h2>My Claims</h2>
+
+<ng-container *ngIf="myClaims$ | async as claims; else loading">
+  <p *ngIf="claims.length === 0">You have no claims yet.</p>
+
+  <ul class="claim-list" *ngIf="claims.length > 0">
+    <li *ngFor="let claim of claims" class="claim-card">
+      <div class="claim-top">
+        <span class="claim-id">{{ claim.id }}</span>
+        <span class="status status-{{ claim.status }}">{{ claim.status }}</span>
+      </div>
+      <p class="claim-type">{{ claim.type | titlecase }} claim</p>
+      <p class="claim-desc">{{ claim.description }}</p>
+      <p class="claim-amount">Estimated: {{ claim.estimatedAmount | currency:'SGD' }}</p>
+      <p *ngIf="claim.decision" class="claim-decision">Decision: {{ claim.decision }}</p>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading your claims…</p>
+</ng-template>

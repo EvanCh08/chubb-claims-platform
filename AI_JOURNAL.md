@@ -45,3 +45,10 @@ The single frontend state layer for claims, and the one boundary between compone
 - Each feature has its own routes file (claimant.routes.ts / staff.routes.ts) that exports a Routes array named CLAIMANT_ROUTES / STAFF_ROUTES. The global app.routes.ts lazy-loads these arrays via loadChildren. Inside each, individual pages are lazy-loaded via loadComponent (path '' → the area's home page for now).
 - Stripped app.component.html down to just <router-outlet> — AppComponent is the shell; routed pages render into the outlet.
 - Tested: login → claimant area; /staff as claimant bounces to login; and vice versa. Role separation working both directions.
+
+### Claimant Product
+- Restructured claimant area into a shell (claimant-home: header + nav + nested <router-outlet>) with two child pages, track + report. Nested routing so the shell/nav persists while content swaps (like a Next.js layout). Default /claimant → redirect to /claimant/track.
+- Track (claim-list): myClaims$ = claims$.pipe(map(filter by claimantId)) — shows only the logged-in claimant's own claims, reactively, via the async pipe. Client-side filter stands in for backend "WHERE claimantId = me".
+- Report (report-claim): Reactive Forms (FormBuilder + Validators: required, minLength, min). On submit → claimService.addClaim() → redirect to track, where the new claim appears immediately because track subscribes to the same BehaviorSubject. Chose reactive over template-driven for explicit, validatable form state.
+- Typed the `type` form control as ClaimType (not plain string) so it matches addClaim's union type — TypeScript caught the mismatch (the model's union-type safety working as intended).
+- Partial data handled: track shows a claim's decision only if it exists (*ngIf="claim.decision"), since a new/submitted claim has none yet.

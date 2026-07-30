@@ -1,2 +1,17 @@
-<h2>Claimant Area</h2>
-<p>Welcome — this is where you'll report and track claims.</p>
+<header class="claimant-header">
+  <h1>Chubb Claims — Claimant</h1>
+  <div class="header-right">
+    <span>{{ currentUser?.name }}</span>
+    <button (click)="logout()">Log out</button>
+  </div>
+</header>
+
+<nav class="claimant-nav">
+  <a routerLink="track">My Claims</a>
+  <a routerLink="report">Report a Claim</a>
+</nav>
+
+<main>
+  <!-- Child pages (track / report) render here -->
+  <router-outlet></router-outlet>
+</main>
