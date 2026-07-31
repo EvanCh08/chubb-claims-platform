@@ -4,16 +4,20 @@ An Angular frontend for a claims platform serving two user types — **claimants
 
 ## Running locally
 
+This app uses a mock backend (JSON Server). You need two terminals:
+
+Terminal 1 — the mock API:
+```bash
+npm run api
+```
+
+Terminal 2 — the Angular app:
 ```bash
 npm install
 ng serve
 ```
 
 Then open `http://localhost:4200`.
-
-There's no login — pick a role on the landing screen:
-- **I'm a Claimant** — report claims and track their status.
-- **I'm Claims Staff** — manage the queue, pick up claims, assess (settle/reject), and view the manager dashboard.
 
 ## What it does
 

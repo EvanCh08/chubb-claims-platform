@@ -65,3 +65,13 @@ The single frontend state layer for claims, and the one boundary between compone
 - totalExposure = sum of estimatedAmount for open claims only (not settled/rejected), matching the liability-exposure definition.
 - Dashboard accessible to all staff — scoped to the brief's two roles (claimant/staff), no separate manager role. Refinement: add a `manager` role + guard the dashboard (same guard pattern, one more role). Left out to stay within the brief's user types.
 - perOfficer counts assigned claims per officer (basic workload view). Refinement: count only active/in-review claims rather than including decided ones.
+
+## 31 July
+### Mock Backend
+- Added JSON Server serving db.json at localhost:3000 (mock REST API — /claims auto-derived from the "claims" key). Run with `npm run api` alongside `ng serve`.
+- Registered HttpClient (provideHttpClient in app.config).
+- Rewrote ClaimService to use HTTP: loadClaims() GETs on startup and fills the BehaviorSubject; addClaim POSTs; assign/settle/reject PATCH — each updates the local cache with the SAVED object the backend returns (authoritative version, e.g. real id).
+- Key point: swapping seed → HTTP changed ONLY the service. Every component, the async pipe, filtering, dashboard — untouched, because components only ever talk to claims$. The service is the single boundary to the backend, exactly as designed.
+- Manual .subscribe() in the service (not async pipe) because it needs to run logic on the response (push into the subject) and there's no template. Leak-safe: HTTP observables emit once and complete, unlike the never-completing BehaviorSubject (which is why components use the async pipe).
+- Now persists: a submitted claim survives a page refresh (saved to db.json), unlike the old in-memory version.
+- Note: JSON Server has no auth/validation — "claimant sees only own claims" is still client-side filtering; real backend would enforce server-side.
