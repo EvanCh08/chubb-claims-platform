@@ -17,7 +17,9 @@ export interface CurrentUser {
 export class AuthService {
   // Current user held in a BehaviorSubject — null when logged out. Same pattern as
   // ClaimService: private subject, public read-only stream, mutate via methods.
-  private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
+  // Initialised from localStorage so a page refresh keeps the user logged in
+  // (a refresh restarts the app, so without this the in-memory user would reset to null).
+  private currentUserSubject = new BehaviorSubject<CurrentUser | null>(this.loadUser());
   public currentUser$: Observable<CurrentUser | null> = this.currentUserSubject.asObservable();
 
   // Synchronous snapshot — guards need to check the role immediately (without
@@ -28,11 +30,23 @@ export class AuthService {
 
   // "Log in" as a given role. Real system: validate credentials against a backend.
   // Here we just set the user — enough to demonstrate role-based routing.
+  // Persist to localStorage so the session survives a page refresh.
   login(user: CurrentUser): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 
+  // Clear the persisted session on logout.
   logout(): void {
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  // Restore the saved user from localStorage on startup (or null if none).
+  // Note: localStorage is fine for this demo's role picker, but not secure auth —
+  // a real system would use tokens with expiry, ideally in httpOnly cookies.
+  private loadUser(): CurrentUser | null {
+    const stored = localStorage.getItem('currentUser');
+    return stored ? JSON.parse(stored) : null;
   }
 }

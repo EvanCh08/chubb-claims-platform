@@ -75,3 +75,7 @@ The single frontend state layer for claims, and the one boundary between compone
 - Manual .subscribe() in the service (not async pipe) because it needs to run logic on the response (push into the subject) and there's no template. Leak-safe: HTTP observables emit once and complete, unlike the never-completing BehaviorSubject (which is why components use the async pipe).
 - Now persists: a submitted claim survives a page refresh (saved to db.json), unlike the old in-memory version.
 - Note: JSON Server has no auth/validation — "claimant sees only own claims" is still client-side filtering; real backend would enforce server-side.
+
+## 1 August
+### Local Storage
+- Persisted auth session to localStorage so a page refresh keeps the user logged in (in-memory BehaviorSubject alone resets on refresh). Noted localStorage isn't secure auth — real system: tokens with expiry / httpOnly cookies. Demo-appropriate given the fake role-picker login.

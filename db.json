@@ -85,6 +85,39 @@
       "description": "Table got damaged by baby",
       "estimatedAmount": 200,
       "createdAt": "2026-07-31T12:34:56.503Z"
+    },
+    {
+      "id": "c_kt9osxp",
+      "claimantId": "u_01",
+      "claimantName": "John Tan",
+      "type": "property",
+      "status": "settled",
+      "description": "Water leaked from toilet",
+      "estimatedAmount": 600,
+      "createdAt": "2026-07-31T12:43:34.459Z",
+      "assignedTo": "Officer Lim",
+      "settledAmount": 600,
+      "decision": "Approved"
+    },
+    {
+      "id": "c_ltybfdi",
+      "claimantId": "u_01",
+      "claimantName": "John Tan",
+      "type": "property",
+      "status": "submitted",
+      "description": "Water leaked in the toilet",
+      "estimatedAmount": 500,
+      "createdAt": "2026-08-01T09:53:26.970Z"
+    },
+    {
+      "id": "c_qeynrnh",
+      "claimantId": "u_01",
+      "claimantName": "John Tan",
+      "type": "motor",
+      "status": "submitted",
+      "description": "My motor got damaged",
+      "estimatedAmount": 200,
+      "createdAt": "2026-08-01T09:59:45.447Z"
     }
   ]
 }
