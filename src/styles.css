@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-submitted { background: #e3f2fd; color: #1565c0; }
+.status-in_review { background: #fff3e0; color: #e65100; }
+.status-settled   { background: #e8f5e9; color: #2e7d32; }
+.status-rejected  { background: #ffebee; color: #c62828; }

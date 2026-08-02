@@ -5,5 +5,5 @@
 }
 .header-right { display: flex; gap: 12px; align-items: center; }
 .claimant-nav { display: flex; gap: 16px; padding: 12px 24px; background: #f7f7f7; }
-.claimant-nav a { text-decoration: none; color: #0645ad; }
+.claimant-nav a { text-decoration: none; color: #0645ad; font-size: large; }
 main { padding: 24px; font-family: system-ui, sans-serif; }

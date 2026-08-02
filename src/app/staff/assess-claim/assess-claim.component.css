@@ -1,11 +1,6 @@
 .back-link { display: inline-block; margin-bottom: 16px; color: #0645ad; text-decoration: none; }
 .claim-summary { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
 .claim-summary p { margin: 6px 0; }
-.status { padding: 2px 10px; border-radius: 12px; font-size: 13px; }
-.status-submitted { background: #e3f2fd; }
-.status-in_review { background: #fff3e0; }
-.status-settled  { background: #e8f5e9; }
-.status-rejected { background: #ffebee; }
 .assess-panels { display: flex; gap: 24px; flex-wrap: wrap; }
 .panel { flex: 1; min-width: 260px; border: 1px solid #ddd; border-radius: 8px; padding: 16px;
          display: flex; flex-direction: column; gap: 12px; }

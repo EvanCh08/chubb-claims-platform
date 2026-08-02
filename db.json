@@ -104,20 +104,38 @@
       "claimantId": "u_01",
       "claimantName": "John Tan",
       "type": "property",
-      "status": "submitted",
+      "status": "settled",
       "description": "Water leaked in the toilet",
       "estimatedAmount": 500,
-      "createdAt": "2026-08-01T09:53:26.970Z"
+      "createdAt": "2026-08-01T09:53:26.970Z",
+      "assignedTo": "Officer Lim",
+      "settledAmount": 1000,
+      "decision": "Approved in full"
     },
     {
       "id": "c_qeynrnh",
       "claimantId": "u_01",
       "claimantName": "John Tan",
       "type": "motor",
-      "status": "submitted",
+      "status": "rejected",
       "description": "My motor got damaged",
       "estimatedAmount": 200,
-      "createdAt": "2026-08-01T09:59:45.447Z"
+      "createdAt": "2026-08-01T09:59:45.447Z",
+      "assignedTo": "Officer Lim",
+      "decision": "Unreasonable."
+    },
+    {
+      "id": "c_836twph",
+      "claimantId": "u_01",
+      "claimantName": "John Tan",
+      "type": "property",
+      "status": "settled",
+      "description": "Damaged by my daughter",
+      "estimatedAmount": 500,
+      "createdAt": "2026-08-02T16:17:14.201Z",
+      "assignedTo": "Officer Lim",
+      "settledAmount": 400,
+      "decision": "Approved partially"
     }
   ]
 }

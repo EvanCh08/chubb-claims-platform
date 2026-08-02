@@ -79,3 +79,9 @@ The single frontend state layer for claims, and the one boundary between compone
 ## 1 August
 ### Local Storage
 - Persisted auth session to localStorage so a page refresh keeps the user logged in (in-memory BehaviorSubject alone resets on refresh). Noted localStorage isn't secure auth — real system: tokens with expiry / httpOnly cookies. Demo-appropriate given the fake role-picker login.
+
+## 2 August
+### UI Change
+- Editted the Claimant and Claim Staff titles, to "Claimant Page" and "Staff Page".
+- Added padding, font-size, and color to the claim statuses for all pages.
+- Added `font-size: large` for the Claimant and Claim Staff navigation bar.
