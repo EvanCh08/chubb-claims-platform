@@ -1,141 +1,45 @@
 {
   "claims": [
     {
-      "id": "c_1001",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "motor",
-      "status": "submitted",
+      "id": "c_1001", "claimantId": "u_01", "claimantName": "John Tan",
+      "type": "motor", "status": "submitted",
       "description": "Rear-ended at a traffic light on the PIE.",
-      "estimatedAmount": 4200,
-      "createdAt": "2026-07-25T09:00:00.000Z"
+      "estimatedAmount": 4200, "createdAt": "2026-07-25T09:00:00.000Z"
     },
     {
-      "id": "c_1002",
-      "claimantId": "u_02",
-      "claimantName": "Priya Nair",
-      "type": "property",
-      "status": "in_review",
+      "id": "c_1002", "claimantId": "u_02", "claimantName": "Priya Nair",
+      "type": "property", "status": "in_review",
       "description": "Burst pipe damaged kitchen flooring.",
-      "estimatedAmount": 15000,
-      "createdAt": "2026-07-24T14:30:00.000Z",
+      "estimatedAmount": 15000, "createdAt": "2026-07-24T14:30:00.000Z",
       "assignedTo": "Officer Lim"
     },
     {
-      "id": "c_1003",
-      "claimantId": "u_03",
-      "claimantName": "Marcus Lee",
-      "type": "motor",
-      "status": "settled",
+      "id": "c_1003", "claimantId": "u_03", "claimantName": "Marcus Lee",
+      "type": "motor", "status": "settled",
       "description": "Windscreen cracked by road debris.",
-      "estimatedAmount": 800,
-      "createdAt": "2026-07-20T11:15:00.000Z",
-      "assignedTo": "Officer Lim",
-      "settledAmount": 750,
+      "estimatedAmount": 800, "createdAt": "2026-07-20T11:15:00.000Z",
+      "assignedTo": "Officer Lim", "settledAmount": 750,
       "decision": "Approved — windscreen replacement covered."
     },
     {
-      "id": "c_1004",
-      "claimantId": "u_04",
-      "claimantName": "Aisha Rahman",
-      "type": "property",
-      "status": "submitted",
+      "id": "c_1004", "claimantId": "u_04", "claimantName": "Aisha Rahman",
+      "type": "property", "status": "submitted",
       "description": "Storm damage to roof tiles.",
-      "estimatedAmount": 9500,
-      "createdAt": "2026-07-26T08:45:00.000Z"
+      "estimatedAmount": 9500, "createdAt": "2026-07-26T08:45:00.000Z"
     },
     {
-      "id": "c_1005",
-      "claimantId": "u_05",
-      "claimantName": "David Wong",
-      "type": "motor",
-      "status": "rejected",
+      "id": "c_1005", "claimantId": "u_05", "claimantName": "David Wong",
+      "type": "motor", "status": "rejected",
       "description": "Claim for pre-existing scratch damage.",
-      "estimatedAmount": 2000,
-      "createdAt": "2026-07-19T16:00:00.000Z",
+      "estimatedAmount": 2000, "createdAt": "2026-07-19T16:00:00.000Z",
       "assignedTo": "Officer Tan",
       "decision": "Rejected — damage predates policy start."
     },
     {
-      "id": "c_1006",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "submitted",
+      "id": "c_1006", "claimantId": "u_01", "claimantName": "John Tan",
+      "type": "property", "status": "submitted",
       "description": "Water heater leak damaged bathroom ceiling.",
-      "estimatedAmount": 6000,
-      "createdAt": "2026-07-27T10:20:00.000Z"
-    },
-    {
-      "id": "c_76hmgsd",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "submitted",
-      "description": "My house ceiling got water flowing out from it",
-      "estimatedAmount": 1000,
-      "createdAt": "2026-07-31T12:34:31.331Z"
-    },
-    {
-      "id": "c_n9xw0n9",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "submitted",
-      "description": "Table got damaged by baby",
-      "estimatedAmount": 200,
-      "createdAt": "2026-07-31T12:34:56.503Z"
-    },
-    {
-      "id": "c_kt9osxp",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "settled",
-      "description": "Water leaked from toilet",
-      "estimatedAmount": 600,
-      "createdAt": "2026-07-31T12:43:34.459Z",
-      "assignedTo": "Officer Lim",
-      "settledAmount": 600,
-      "decision": "Approved"
-    },
-    {
-      "id": "c_ltybfdi",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "settled",
-      "description": "Water leaked in the toilet",
-      "estimatedAmount": 500,
-      "createdAt": "2026-08-01T09:53:26.970Z",
-      "assignedTo": "Officer Lim",
-      "settledAmount": 1000,
-      "decision": "Approved in full"
-    },
-    {
-      "id": "c_qeynrnh",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "motor",
-      "status": "rejected",
-      "description": "My motor got damaged",
-      "estimatedAmount": 200,
-      "createdAt": "2026-08-01T09:59:45.447Z",
-      "assignedTo": "Officer Lim",
-      "decision": "Unreasonable."
-    },
-    {
-      "id": "c_836twph",
-      "claimantId": "u_01",
-      "claimantName": "John Tan",
-      "type": "property",
-      "status": "settled",
-      "description": "Damaged by my daughter",
-      "estimatedAmount": 500,
-      "createdAt": "2026-08-02T16:17:14.201Z",
-      "assignedTo": "Officer Lim",
-      "settledAmount": 400,
-      "decision": "Approved partially"
+      "estimatedAmount": 6000, "createdAt": "2026-07-27T10:20:00.000Z"
     }
   ]
 }
